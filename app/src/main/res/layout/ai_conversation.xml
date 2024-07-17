@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#d8e0e8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:fitsSystemWindows="true"
+        tools:context=".AiConversationActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/ai_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <ProgressBar
+            android:id="@+id/ai_process"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/ai_process_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请等待..."
+            android:gravity="center"
+            android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/ai_inputText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Type something here"
+            android:maxLines="2" />
+
+        <Button
+            android:id="@+id/ai_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="OnSendClick"
+            android:text="Send" />
+
+        <Button
+            android:id="@+id/ai_quit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="quit"
+            android:text="Quit" />
+
+    </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

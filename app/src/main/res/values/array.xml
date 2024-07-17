@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Games">
+        <item>拼图游戏</item>
+        <item>Android学习</item>
+        <item>百度</item>
+        <item>电话</item>
+        <item>AI问答</item>
+        <item>新游戏</item>
+    </string-array>
+</resources>
