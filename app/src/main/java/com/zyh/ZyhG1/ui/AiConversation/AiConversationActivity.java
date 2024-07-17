@@ -14,7 +14,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.androidgamesdk.GameActivity;
 import com.google.gson.Gson;
 import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
@@ -22,18 +21,18 @@ import com.zyh.ZyhG1.model.Msg;
 import com.zyh.ZyhG1.model.MsgAdapter;
 import com.zyh.ZyhG1.model.OllamaResponse;
 import com.zyh.ZyhG1.network.RequestHelper;
-import com.zyh.ZyhG1.ui.AndroidStudy.AndroidStudyActivity;
+import com.zyh.ZyhG1.ui.BaseActivity;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-public class AiConversationActivity extends GameActivity {
+public class AiConversationActivity extends BaseActivity {
     String msg = "Android AiConversationActivity: ";
 
     private static final int Type_Disable = 0;
     private static final int Type_Enable = 1;
-    private RequestHelper _requestHelper = new RequestHelper();
+    private final RequestHelper _requestHelper = new RequestHelper();
     private final ArrayList<Msg> _msgList = new ArrayList<>();
     private MsgAdapter _adapter = null;
     RecyclerView _recyclerView;

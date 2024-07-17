@@ -13,7 +13,7 @@ public class SimpleFragmentAdapter extends FragmentStateAdapter {
 
     private final String[] _tabTitles = { "Fragment1", "Fragment2"};
     private final Fragment[] _fragment = { new Fragment1(), new Fragment2() };
-    private final int[] _image = { R.drawable.img_pic1_00_00, R.drawable.img_pic1_00_01 };
+    private final int[] _image = { R.drawable.et, R.drawable.star, R.drawable.person };
 
     public SimpleFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -35,7 +35,6 @@ public class SimpleFragmentAdapter extends FragmentStateAdapter {
     }
 
     public int getPageIcon(int position) {
-        // return _image[position];
-        return R.drawable.ic_launcher_foreground;
+        return _image[position];
     }
 }

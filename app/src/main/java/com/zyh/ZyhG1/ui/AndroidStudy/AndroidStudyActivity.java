@@ -1,11 +1,14 @@
 package com.zyh.ZyhG1.ui.AndroidStudy;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
@@ -18,10 +21,20 @@ import com.zyh.ZyhG1.model.SimpleFragmentAdapter;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
 public class AndroidStudyActivity extends BaseActivity {
+
+    public static class TimeChangeReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Toast.makeText(context, "Time has changed", Toast.LENGTH_LONG).show();
+        }
+    }
+
     String msg = "Android AndroidStudyActivity: ";
     ViewPager2 _viewPager2;
     TabLayout _tabLayout;
     SimpleFragmentAdapter _adapter;
+    TimeChangeReceiver _timeChangeReceiver = null;
 
     /** 当活动第一次被创建时调用 */
     @Override
@@ -36,6 +49,11 @@ public class AndroidStudyActivity extends BaseActivity {
             actionBar.hide();
         }
 
+        initTab();
+        // initBroadCast();
+    }
+
+    public void initTab() {
         _viewPager2 = findViewById(R.id.as_viewPager2);
         _tabLayout = findViewById(R.id.as_tabLayout);
         // 创建FragmentStateAdapter的实例
@@ -99,6 +117,21 @@ public class AndroidStudyActivity extends BaseActivity {
         rv.setClipToPadding(false);
     }
 
+    public void initBroadCast() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.TIME_TICK");
+        _timeChangeReceiver = new TimeChangeReceiver();
+        registerReceiver(_timeChangeReceiver, intentFilter);
+    }
+
+    public void sendBroadcast(View view) {
+        Intent intent = new Intent("com.zyh.ZyhG1.MY_BROADCAST");
+        intent.setPackage(getPackageName());
+        intent.putExtra("BroadcastInfo", "This is broadcast info");
+        // sendBroadcast(intent);
+        sendOrderedBroadcast(intent, null);
+    }
+
     /* 退出按钮的点击事件*/
     public void quit(View view) {
         Log.d(msg, "The quit() event");
@@ -106,5 +139,13 @@ public class AndroidStudyActivity extends BaseActivity {
         intent.putExtra("return", "活动二返回的数据");
         setResult(RESULT_OK, intent);
         AndroidStudyActivity.this.finish();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (_timeChangeReceiver != null) {
+            unregisterReceiver(_timeChangeReceiver);
+        }
     }
 }

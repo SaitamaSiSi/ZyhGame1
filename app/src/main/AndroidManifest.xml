@@ -45,6 +45,22 @@
         <activity android:name=".ui.AndroidStudy.DialogActivity"
             android:theme="@style/Theme.AppCompat.Dialog" />
         <activity android:name=".ui.AiConversation.AiConversationActivity" />
+        <receiver
+            android:name=".model.MyBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="100">
+                <action android:name="com.zyh.ZyhG1.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".model.AnotherBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.zyh.ZyhG1.MY_BROADCAST" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

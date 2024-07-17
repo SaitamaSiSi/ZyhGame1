@@ -10,7 +10,7 @@ public class BaseActivity extends GameActivity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-        Log.d("BaseActivity", this.getClass().getName());
+        // Log.d("BaseActivity", this.getClass().getName());
         ActivityCollector.addActivity(this);
     }
 

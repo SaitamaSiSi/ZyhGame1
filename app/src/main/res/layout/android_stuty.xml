@@ -29,6 +29,15 @@
             android:layout_weight="8" />
 
         <Button
+            android:id="@+id/as_btn_broadcast"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:onClick="sendBroadcast"
+            android:text="Send Broadcast" />
+
+        <Button
             android:id="@+id/as_btn_quit"
             android:layout_width="match_parent"
             android:layout_height="0dp"

@@ -1,5 +1,6 @@
 package com.zyh.ZyhG1.ui.AndroidStudy;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,8 +27,11 @@ public class Fragment1 extends Fragment {
         });
         Button dialogButton = view.findViewById(R.id.f1_btn_dialog);
         dialogButton.setOnClickListener((v) -> {
-            Intent intent = new Intent(this.getActivity(), DialogActivity.class);
-            startActivity(intent);
+            Activity activity = this.getActivity();
+            if (activity != null) {
+                Intent intent = new Intent(activity, DialogActivity.class);
+                startActivity(intent);
+            }
         });
 
         return view;
