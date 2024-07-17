@@ -1,37 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:fitsSystemWindows="true"
         tools:context=".AndroidStudyActivity">
 
-        <Button
-            android:id="@+id/as_btn_msg"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/as_tabLayout"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="0dp"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabIndicatorGravity="bottom" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/as_viewPager2"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="onBtnMsgClick"
-            android:text="Msg Button" />
-        <Button
-            android:id="@+id/as_btn_dialog"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="onBtnDialogClick"
-            android:text="Dialog Button" />
+            android:layout_weight="8" />
+
         <Button
             android:id="@+id/as_btn_quit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:layout_gravity="center"
             android:onClick="quit"
             android:text="@string/quit" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
