@@ -14,7 +14,11 @@
     <string name="pt_9">拼图9</string>
     <string name="game_select">游戏选择</string>
     <string name="confirm">确定</string>
+    <string name="request">请求</string>
+    <string name="account">账户</string>
+    <string name="password">密码</string>
     <string name="login">登录</string>
     <string name="quit">退出</string>
+    <string name="forceOffline">强制下线</string>
     <string name="title_activity_normal">NormalActivity</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.zyh.ZyhG1;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +7,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.util.Log;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -18,9 +18,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 
 import com.zyh.ZyhG1.network.RequestHelper;
-import com.zyh.ZyhG1.singleton.ActivityCollector;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
+import com.zyh.ZyhG1.ui.Login.LoginActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
 
 import java.util.Objects;
@@ -78,6 +78,12 @@ public class MainActivity extends BaseActivity {
 
         TextView textView = findViewById(R.id.main_msg);
         textView.setMovementMethod(ScrollingMovementMethod.getInstance());
+
+        Button forceBtn = findViewById(R.id.main_force_offline_bt);
+        forceBtn.setOnClickListener(view -> {
+            Intent intent = new Intent("com.zyh.ZyhG1.FORCE_OFFLINE");
+            sendBroadcast(intent);
+        });
     }
 
     /** 由于页面销毁，保存临时数据 **/
@@ -139,7 +145,7 @@ public class MainActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void onLoginClick(View view) {
+    public void onRequestClick(View view) {
         Log.d(activity_title, "The OnLogin() event");
         ProgressBar progressBar = findViewById(R.id.main_process);
         progressBar.setVisibility(View.VISIBLE);
@@ -156,12 +162,9 @@ public class MainActivity extends BaseActivity {
                 Log.d(String.valueOf(Log.INFO), res);
                 // 在这里你可以将responseBody设置为TextView的文本或其他UI更新操作
                 // 但请注意，这需要在主线程上执行
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextView textView = findViewById(R.id.main_msg);
-                        textView.setText(res);
-                    }
+                runOnUiThread(() -> {
+                    TextView textView = findViewById(R.id.main_msg);
+                    textView.setText(res);
                 });
             } catch (InterruptedException e) {
                 runOnUiThread(() -> {
@@ -171,25 +174,16 @@ public class MainActivity extends BaseActivity {
             }
             finally {
                 runOnUiThread(() -> {
-                    ProgressBar progressBar1 = findViewById(R.id.main_process);
-                    progressBar1.setVisibility(View.INVISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                 });
             }
         }).start();
     }
 
     public void onQuitClick(View view) {
-        new AlertDialog.Builder(this)
-                .setTitle("提示")
-                .setMessage("是否确认退出APP")
-                .setCancelable(false)
-                .setNegativeButton("否", (dialogInterface, i) -> {
-                    Toast.makeText(this, "已取消", Toast.LENGTH_SHORT).show();
-                })
-                .setPositiveButton("是", (dialogInterface, i) -> {
-                    ActivityCollector.finishAll();
-                })
-                .show();
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        setResult(RESULT_OK, intent);
+        MainActivity.this.finish();
     }
 
     /** 当活动即将可见时调用 */

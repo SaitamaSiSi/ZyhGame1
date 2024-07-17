@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZyhGame"
         tools:targetApi="31" >
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.Login.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,11 +28,8 @@
                 android:name="android.app.lib_name"
                 android:value="ZyhG1" />
         </activity>
-        <activity android:name=".ui.PtGame.PtGameActivity" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="ZyhG1" />
-        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".ui.PtGame.PtGameActivity" />
         <activity android:name=".ui.AndroidStudy.AndroidStudyActivity"
             android:exported="false" >
             <intent-filter>
