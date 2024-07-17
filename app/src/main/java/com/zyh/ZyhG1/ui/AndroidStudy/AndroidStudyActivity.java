@@ -46,7 +46,7 @@ public class AndroidStudyActivity extends BaseActivity {
         new TabLayoutMediator(_tabLayout, _viewPager2, (tab, position) -> {
             // 配置标签的标题或图标等
             tab.setText(_adapter.getPageTitle(position));
-            // tab.setIcon(_adapter.getPageIcon(position));
+            tab.setIcon(_adapter.getPageIcon(position));
         }).attach();
 
         // 设置TabLayout的OnTabSelectedListener

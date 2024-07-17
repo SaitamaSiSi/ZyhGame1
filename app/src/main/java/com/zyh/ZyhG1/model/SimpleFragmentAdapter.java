@@ -11,9 +11,9 @@ import com.zyh.ZyhG1.ui.AndroidStudy.Fragment2;
 
 public class SimpleFragmentAdapter extends FragmentStateAdapter {
 
-    private final String[] _tabTitles = { "Fragment1", "Fragment2", "Fragment3" };
-    private final Fragment[] _fragment = { new Fragment1(), new Fragment2(), new Fragment1() };
-    private final int[] _image = { R.drawable.img_pic1_00_00, R.drawable.img_pic1_00_01, R.drawable.img_pic1_00_02 };
+    private final String[] _tabTitles = { "Fragment1", "Fragment2"};
+    private final Fragment[] _fragment = { new Fragment1(), new Fragment2() };
+    private final int[] _image = { R.drawable.img_pic1_00_00, R.drawable.img_pic1_00_01 };
 
     public SimpleFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -35,6 +35,7 @@ public class SimpleFragmentAdapter extends FragmentStateAdapter {
     }
 
     public int getPageIcon(int position) {
-        return _image[position];
+        // return _image[position];
+        return R.drawable.ic_launcher_foreground;
     }
 }
