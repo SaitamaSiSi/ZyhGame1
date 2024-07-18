@@ -39,4 +39,11 @@
         android:layout_gravity="center"
         android:text="Load from shared file" />
 
+    <Button
+        android:id="@+id/f2_btn_sqlite_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="SQLite Test" />
+
 </LinearLayout>
