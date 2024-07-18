@@ -21,4 +21,8 @@ public class ConvertHelper {
             return null;
         }
     }
+
+    public static <T extends Number>T method(T param) {
+        return param;
+    }
 }

@@ -19,6 +19,7 @@ import androidx.appcompat.app.ActionBar;
 
 import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
+import com.zyh.ZyhG1.ui.AndroidStudy.RunningPermissionActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
 import com.zyh.ZyhG1.ui.Login.LoginActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
@@ -115,9 +116,9 @@ public class MainActivity extends BaseActivity {
                 intent3.setData(Uri.parse("https://www.baidu.com"));
                 startActivity(intent3);
                 break;
-            case "电话":
-                Intent intent4 = new Intent(Intent.ACTION_DIAL);
-                intent4.setData(Uri.parse("tel:10086"));
+            case "运行时申请权限":
+                Intent intent4 = new Intent(MainActivity.this, RunningPermissionActivity.class);
+                intent4.putExtra("HiddenActionBar", true);
                 startActivity(intent4);
                 break;
             case "AI问答":
