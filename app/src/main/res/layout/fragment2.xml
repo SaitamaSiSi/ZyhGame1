@@ -5,4 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/f2_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Type something here" />
+
+    <Button
+        android:id="@+id/f2_btn_file_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Save in file" />
+
+    <Button
+        android:id="@+id/f2_btn_file_load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Load from file" />
+
+    <Button
+        android:id="@+id/f2_btn_share_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Save in shared file" />
+
+    <Button
+        android:id="@+id/f2_btn_share_load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Load from shared file" />
+
 </LinearLayout>

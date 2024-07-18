@@ -20,8 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"
-            android:text="admin"/>
+            android:layout_gravity="center_vertical" />
     </LinearLayout>
 
     <LinearLayout
@@ -40,8 +39,22 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
-            android:inputType="textPassword"
-            android:text="123456"/>
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/login_remember_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="@string/rememberPwd" />
     </LinearLayout>
 
     <Button
@@ -49,7 +62,6 @@
         android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
-        android:onClick="onLoginClick"
         android:text="@string/login" />
 
     <Button

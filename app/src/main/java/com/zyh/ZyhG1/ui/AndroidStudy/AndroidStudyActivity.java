@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -112,9 +111,9 @@ public class AndroidStudyActivity extends BaseActivity {
         }
 
         _viewPager2.setOffscreenPageLimit(1);
-        RecyclerView rv = (RecyclerView)_viewPager2.getChildAt(0);
+        /*RecyclerView rv = (RecyclerView)_viewPager2.getChildAt(0);
         rv.setPadding(60, 0, 60, 0);
-        rv.setClipToPadding(false);
+        rv.setClipToPadding(false);*/
     }
 
     public void initBroadCast() {
