@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity {
                 Intent intent2 = new Intent("com.zyh.ZyhG1.ACTION_asStudy");
                 intent2.addCategory("com.zyh.ZyhG1.CATEGORY_asStudy");
                 intent2.putExtra("HiddenActionBar", true);
-                // TODO 方法被弃用
+                // TODO 方法已弃用
                 startActivityForResult(intent2, 1);
                 break;
             case "应用通知":

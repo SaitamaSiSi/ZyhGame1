@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -51,20 +50,35 @@ public class NotificationActivity extends BaseActivity {
             // 对通知进行管理
             NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             // 构建通知渠道
+            /* 解包，因为当前环境下永远为true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
                 manager.createNotificationChannel(channel);
             }
+            **/
+            NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+            manager.createNotificationChannel(channel);
             Intent intent = new Intent(NotificationActivity.this, AndroidStudyActivity.class);
             intent.putExtra("HiddenActionBar", true);
-            PendingIntent pi = PendingIntent.getActivity(NotificationActivity.this, 0, intent, 0);
+            PendingIntent pi = PendingIntent.getActivity(NotificationActivity.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
             // 构建通知内容
+            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+            NotificationCompat.BigPictureStyle bigPictureStyle = new NotificationCompat.BigPictureStyle();
             Notification notification = new NotificationCompat.Builder(this, channelId)
                     .setContentTitle("这是标题内容")
+                    /* setContentText和setStyle互斥
                     .setContentText("这是正文内容")
+                    .setStyle(bigPictureStyle.bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.pic1)))
+                    **/
+                    .setStyle(bigTextStyle.bigText("Learn how to build notifications, send and sync data," +
+                            " and use voice actions.Get the official Android IDE and developer tools to" +
+                            " build apps for Android."))
+                    /* setSmallIcon和setLargeIcon互斥
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.star))
+                    **/
                     .setSmallIcon(R.drawable.person)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.pic1))
                     .setContentIntent(pi)
+                    .setAutoCancel(true)
                     .build();
             // 通知，每个通知id都不同
             manager.notify(1, notification);
