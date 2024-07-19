@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.AndroidStudy.DialogActivity"
-            android:theme="@style/Theme.AppCompat.Dialog" />
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity android:name=".ui.AiConversation.AiConversationActivity" />
         <activity android:name=".ui.AndroidStudy.RunningPermissionActivity" />
         <activity android:name=".ui.AndroidStudy.NotificationActivity" />

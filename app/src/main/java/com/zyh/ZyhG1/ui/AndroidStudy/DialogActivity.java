@@ -25,6 +25,8 @@ public class DialogActivity extends BaseActivity {
         super.onCreate(state);
         Log.d(msg, "The onCreate() event");
         setContentView(R.layout.dialog);
+
+        setTitle("Dialog");
         initFruits();
 
         /* FruitAdapter调用
