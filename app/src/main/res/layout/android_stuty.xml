@@ -19,12 +19,12 @@
             android:layout_weight="1.5"
             android:layout_marginTop="0dp"
             app:tabGravity="fill"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabIndicatorGravity="bottom" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/as_viewPager2"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_width="match_parent"
             android:layout_weight="9" />
 

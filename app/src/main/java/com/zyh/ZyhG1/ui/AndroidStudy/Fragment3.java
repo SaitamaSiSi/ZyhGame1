@@ -32,7 +32,8 @@ import java.io.InputStream;
 
 public class Fragment3 extends Fragment {
     private Context _context;
-    private int _takePhoto = 1;
+    private final int TAKE_PHOTO = 1;
+    private final int FROM_ALBUM = 2;
     private Uri _imageUri;
     private File _outputImage;
     private ImageView _imageView;
@@ -43,10 +44,12 @@ public class Fragment3 extends Fragment {
         View view = inflater.inflate(R.layout.fragment3, container, false);
         _context = view.getContext();
 
+        _imageView = view.findViewById(R.id.f3_image_view);
+
         Button takePhotoBtn = view.findViewById(R.id.f3_btn_take_photo);
         takePhotoBtn.setOnClickListener((v) -> {
             try {
-                // 创建File对象，用于存储拍照后的图片
+                // 创建File对象，用于存储拍照后的图片 /sdcard/Android/data/<package name>/cache
                 _outputImage = new File(_context.getExternalCacheDir(), "output_image.jpg");
                 if (_outputImage.exists()) {
                     _outputImage.delete();
@@ -64,13 +67,22 @@ public class Fragment3 extends Fragment {
                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, _imageUri);
                 // TODO 方法已弃用
-                startActivityForResult(intent, _takePhoto);
+                startActivityForResult(intent, TAKE_PHOTO);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
 
-        _imageView = view.findViewById(R.id.f3_image_view);
+        Button fromBtn = view.findViewById(R.id.f3_btn_from_album);
+        fromBtn.setOnClickListener((v) -> {
+            // 打开文件选择器
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            // 指定只显示图片
+            intent.setType("image/*");
+            // TODO 方法已弃用
+            startActivityForResult(intent, FROM_ALBUM);
+        });
 
         return view;
     }
@@ -78,16 +90,35 @@ public class Fragment3 extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == _takePhoto) {
-            if (requestCode == Activity.RESULT_OK) {
-                // 将拍摄的照片显示出来
-                try {
-                    Bitmap bitmap = BitmapFactory.decodeStream(_context.getContentResolver().openInputStream(_imageUri));
-                    _imageView.setImageBitmap(rotateIfRequired(bitmap));
-                } catch (FileNotFoundException e) {
-                    throw new RuntimeException(e);
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == Activity.RESULT_OK) {
+                    // 将拍摄的照片显示出来
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(_context.getContentResolver().openInputStream(_imageUri));
+                        _imageView.setImageBitmap(rotateIfRequired(bitmap));
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            }
+                break;
+            case FROM_ALBUM:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    Bitmap bitmap = getBitmapFromUri(data.getData());
+                    if (bitmap != null) {
+                        _imageView.setImageBitmap(bitmap);
+                    }
+                }
+                break;
+        }
+    }
+
+    private Bitmap getBitmapFromUri(Uri uri) {
+        try {
+            return BitmapFactory.decodeFileDescriptor(_context.getContentResolver().openFileDescriptor(uri, "r").getFileDescriptor());
+        }
+        catch (Exception e) {
+            return null;
         }
     }
 
