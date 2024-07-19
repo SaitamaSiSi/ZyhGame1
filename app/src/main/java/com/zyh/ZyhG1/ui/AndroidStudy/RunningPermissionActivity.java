@@ -15,11 +15,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
@@ -33,12 +31,6 @@ public class RunningPermissionActivity extends BaseActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.running_permission);
-        boolean extraData = getIntent().getBooleanExtra("HiddenActionBar", false);
-        // 隐藏ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (extraData && actionBar != null) {
-            actionBar.hide();
-        }
 
         init();
     }
@@ -47,9 +39,6 @@ public class RunningPermissionActivity extends BaseActivity {
         /* 返回上一层 **/
         Button quitBtn = findViewById(R.id.rp_btn_quit);
         quitBtn.setOnClickListener((v) -> {
-            Intent intent = new Intent(RunningPermissionActivity.this, MainActivity.class);
-            intent.putExtra("return", "运行时权限返回的数据");
-            setResult(RESULT_OK, intent);
             RunningPermissionActivity.this.finish();
         });
 

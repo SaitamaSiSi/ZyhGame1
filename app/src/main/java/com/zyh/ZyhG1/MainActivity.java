@@ -1,7 +1,6 @@
 package com.zyh.ZyhG1;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -15,13 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 
 import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
+import com.zyh.ZyhG1.ui.AndroidStudy.NotificationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.RunningPermissionActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
-import com.zyh.ZyhG1.ui.Login.LoginActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
 
 import java.util.Objects;
@@ -49,11 +47,6 @@ public class MainActivity extends BaseActivity {
             String tempData = state.getString("as_temp_data");
             Log.d(activity_title, String.format("tempData is %s", tempData));
         }*/
-        // 隐藏ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
         initView();
     }
 
@@ -100,7 +93,6 @@ public class MainActivity extends BaseActivity {
         switch (current_select) {
             case "拼图游戏":
                 Intent intent1 = new Intent(MainActivity.this, PtGameActivity.class);
-                intent1.putExtra("HiddenActionBar", true);
                 startActivity(intent1);
                 break;
             case "Android学习":
@@ -111,19 +103,16 @@ public class MainActivity extends BaseActivity {
                 // TODO 方法被弃用
                 startActivityForResult(intent2, 1);
                 break;
-            case "百度":
-                Intent intent3 = new Intent(Intent.ACTION_VIEW);
-                intent3.setData(Uri.parse("https://www.baidu.com"));
+            case "应用通知":
+                Intent intent3 = new Intent(MainActivity.this, NotificationActivity.class);
                 startActivity(intent3);
                 break;
             case "运行时申请权限":
                 Intent intent4 = new Intent(MainActivity.this, RunningPermissionActivity.class);
-                intent4.putExtra("HiddenActionBar", true);
                 startActivity(intent4);
                 break;
             case "AI问答":
                 Intent intent5 = new Intent(MainActivity.this, AiConversationActivity.class);
-                intent5.putExtra("HiddenActionBar", true);
                 startActivity(intent5);
                 break;
             case "新游戏":
@@ -182,8 +171,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onQuitClick(View view) {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-        setResult(RESULT_OK, intent);
         MainActivity.this.finish();
     }
 
@@ -191,35 +178,30 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(activity_title, "The onStart() event");
     }
 
     /** 当活动可见时调用 */
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(activity_title, "The onResume() event");
     }
 
     /** 当其他活动获得焦点时调用 */
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(activity_title, "The onPause() event");
     }
 
     /** 当活动不再可见时调用 */
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(activity_title, "The onStop() event");
     }
 
     /** 当活动将被销毁时调用 */
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d(activity_title, "The onDestroy() event");
     }
 
     @Override
@@ -227,7 +209,6 @@ public class MainActivity extends BaseActivity {
         super.onWindowFocusChanged(hasFocus);
 
         if (hasFocus) {
-            Log.d(activity_title, "The onWindowFocusChanged() event => hasFocus");
         }
     }
 }

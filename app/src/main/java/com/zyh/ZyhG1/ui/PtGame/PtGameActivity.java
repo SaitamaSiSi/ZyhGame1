@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.ui.BaseActivity;
@@ -81,14 +79,8 @@ public class PtGameActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-        Log.d(msg, "The onCreate() event");
         setContentView(R.layout.game_pt);
-        boolean extraData = getIntent().getBooleanExtra("HiddenActionBar", false);
-        // 隐藏ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (extraData && actionBar != null) {
-            actionBar.hide();
-        }
+
         initView();
         disruptRandom();
         myHandler.sendEmptyMessageDelayed(1,1000);
@@ -157,28 +149,24 @@ public class PtGameActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d(msg, "The onStart() event");
     }
 
     /** 当活动可见时调用 */
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d(msg, "The onResume() event");
     }
 
     /** 当其他活动获得焦点时调用 */
     @Override
     protected void onPause() {
         super.onPause();
-        Log.d(msg, "The onPause() event");
     }
 
     /** 当活动不再可见时调用 */
     @Override
     protected void onStop() {
         super.onStop();
-        Log.d(msg, "The onStop() event");
     }
 
     /** 当活动将被销毁时调用 */
@@ -186,12 +174,10 @@ public class PtGameActivity extends BaseActivity {
     public void onDestroy() {
         myHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
-        Log.d(msg, "The onDestroy() event");
     }
 
     // 图片按钮的点击事件
     public void onClick(View view) {
-        Log.d(msg, "The onClick() event");
         int id = view.getId();
         // 九个按钮执行的点击事件的逻辑应该是相同的，如果有空格在周围，可以改变图片显示的位置，否则点击事件不响应
         if (id == R.id.pt_ib_00x00) {
@@ -260,7 +246,6 @@ public class PtGameActivity extends BaseActivity {
         }
         if (loop) {
             // 拼图成功了
-            Log.d(msg, "Game Over");
             // 停止计时
             myHandler.removeMessages(1);
             // 拼图成功后，禁止玩家继续移动按钮
@@ -298,8 +283,6 @@ public class PtGameActivity extends BaseActivity {
 
     /* 重新开始按钮的点击事件*/
     public void restart(View view) {
-        Log.d(msg, "The restart() event");
-
         // 将状态还原
         restore();
         // 将拼图重新打乱
@@ -338,16 +321,6 @@ public class PtGameActivity extends BaseActivity {
 
     /* 退出按钮的点击事件*/
     public void quit(View view) {
-        Log.d(msg, "The quit() event");
         PtGameActivity.this.finish();
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        if (hasFocus) {
-            Log.d(msg, "The onWindowFocusChanged() event => hasFocus");
-        }
     }
 }

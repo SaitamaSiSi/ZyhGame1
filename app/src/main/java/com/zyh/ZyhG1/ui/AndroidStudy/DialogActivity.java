@@ -1,19 +1,14 @@
 package com.zyh.ZyhG1.ui.AndroidStudy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.model.Fruit;
-import com.zyh.ZyhG1.model.FruitAdapter;
 import com.zyh.ZyhG1.model.FruitAdapter2;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
@@ -32,8 +27,8 @@ public class DialogActivity extends BaseActivity {
         setContentView(R.layout.dialog);
         initFruits();
 
-        // FruitAdapter调用
-        /*ListView listView = findViewById(R.id.dialog_listView);
+        /* FruitAdapter调用
+        ListView listView = findViewById(R.id.dialog_listView);
         if (listView != null) {
             ListAdapter adapter = new FruitAdapter(this, R.layout.fruit_item, fruitList);
             listView.setAdapter(adapter);
@@ -41,7 +36,8 @@ public class DialogActivity extends BaseActivity {
                 Fruit fruit = fruitList.get(position);
                 Toast.makeText(this, fruit._name, Toast.LENGTH_SHORT).show();
             });
-        }**/
+        }
+        **/
 
         // FruitAdapter2调用
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -69,8 +65,6 @@ public class DialogActivity extends BaseActivity {
     }
 
     public void quit(View view) {
-        Log.d(msg, "The quit() event");
-        Intent intent2 = new Intent(DialogActivity.this, AndroidStudyActivity.class);
         DialogActivity.this.finish();
     }
 }

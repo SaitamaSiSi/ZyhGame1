@@ -6,6 +6,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.Window;
+
+import androidx.appcompat.app.ActionBar;
 
 import com.google.androidgamesdk.GameActivity;
 import com.zyh.ZyhG1.singleton.ActivityCollector;
@@ -17,6 +20,13 @@ public class BaseActivity extends GameActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         // Log.d("BaseActivity", this.getClass().getName());
+        /* 隐藏ActionBar
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
+        **/
+
         ActivityCollector.addActivity(this);
     }
 

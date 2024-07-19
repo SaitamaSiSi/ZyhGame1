@@ -41,12 +41,8 @@ public class AndroidStudyActivity extends BaseActivity {
         super.onCreate(state);
         Log.d(msg, "The onCreate() event");
         setContentView(R.layout.android_stuty);
+
         boolean extraData = getIntent().getBooleanExtra("HiddenActionBar", false);
-        // 隐藏ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (extraData && actionBar != null) {
-            actionBar.hide();
-        }
 
         initTab();
         // initBroadCast();
@@ -135,7 +131,7 @@ public class AndroidStudyActivity extends BaseActivity {
     public void quit(View view) {
         Log.d(msg, "The quit() event");
         Intent intent = new Intent(AndroidStudyActivity.this, MainActivity.class);
-        intent.putExtra("return", "活动二返回的数据");
+        intent.putExtra("return", msg + "返回的数据");
         setResult(RESULT_OK, intent);
         AndroidStudyActivity.this.finish();
     }

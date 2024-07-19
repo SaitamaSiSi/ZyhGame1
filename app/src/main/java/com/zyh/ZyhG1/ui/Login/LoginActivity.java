@@ -11,8 +11,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
-
 import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.singleton.ActivityCollector;
@@ -23,11 +21,6 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.login_activity);
-        // 隐藏ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
 
         init();
     }
