@@ -80,4 +80,7 @@ dependencies {
 
     /** json **/
     implementation(libs.gson) // 请检查并使用最新版本
+
+    /** exifinterface **/
+    implementation("androidx.exifinterface:exifinterface:1.3.6")
 }

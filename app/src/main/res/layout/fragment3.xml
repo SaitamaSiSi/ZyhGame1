@@ -14,23 +14,136 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/f3_btn_take_photo"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Take Photo" />
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/f3_btn_from_album"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/f3_btn_take_photo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="1dp"
+                        android:text="Take Photo" />
+
+                    <Button
+                        android:id="@+id/f3_btn_from_album"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="1dp"
+                        android:text="From Album" />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/f3_image_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="From Album" />
+                android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/f3_image_view"
-                android:layout_width="wrap_content"
+                <Button
+                    android:id="@+id/f3_btn_load_mp3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="1dp"
+                    android:visibility="gone"
+                    android:text="Load Mp3" />
+
+                <Button
+                    android:id="@+id/f3_btn_play_mp3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:text="Play Mp3" />
+
+                <Button
+                    android:id="@+id/f3_btn_pause_mp3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:text="Pause Mp3" />
+
+                <Button
+                    android:id="@+id/f3_btn_stop_mp3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="1dp"
+                    android:text="Stop Mp3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal" />
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/f3_btn_load_video"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="1dp"
+                        android:visibility="gone"
+                        android:text="Load Video" />
+
+                    <Button
+                        android:id="@+id/f3_btn_play_video"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="1dp"
+                        android:text="Plays Video" />
+
+                    <Button
+                        android:id="@+id/f3_btn_pause_video"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:text="Pause Video" />
+
+                    <Button
+                        android:id="@+id/f3_btn_resume_video"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="1dp"
+                        android:text="Resume Video" />
+
+                </LinearLayout>
+
+                <VideoView
+                    android:id="@+id/f3_video_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
