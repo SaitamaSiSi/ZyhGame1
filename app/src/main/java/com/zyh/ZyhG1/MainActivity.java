@@ -19,6 +19,7 @@ import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.NotificationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.RunningPermissionActivity;
+import com.zyh.ZyhG1.ui.AndroidStudy.ThreadActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
 
@@ -115,8 +116,9 @@ public class MainActivity extends BaseActivity {
                 Intent intent5 = new Intent(MainActivity.this, AiConversationActivity.class);
                 startActivity(intent5);
                 break;
-            case "新游戏":
-                Toast.makeText(this, "正在开发中...", Toast.LENGTH_SHORT).show();
+            case "多线程":
+                Intent intent6 = new Intent(MainActivity.this, ThreadActivity.class);
+                startActivity(intent6);
                 break;
             default:
                 break;

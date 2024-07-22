@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/thread_btn_changeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Change Text" />
+
+    <TextView
+        android:id="@+id/thread_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="Hello world"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/thread_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/thread_btn_bind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bind Service" />
+
+        <Button
+            android:id="@+id/thread_btn_unbind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Unbind Service" />
+
+        <Button
+            android:id="@+id/thread_btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Start Service" />
+
+        <Button
+            android:id="@+id/thread_btn_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Stop Service" />
+
+    </LinearLayout>
+
+</RelativeLayout>
