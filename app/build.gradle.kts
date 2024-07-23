@@ -78,12 +78,16 @@ dependencies {
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
 
-    /** json **/
-    implementation(libs.gson) // 请检查并使用最新版本
-
     /** exifinterface **/
     implementation("androidx.exifinterface:exifinterface:1.3.6")
 
     /** OkHttp **/
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    // implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    /** json **/
+    // implementation(libs.gson) // 请检查并使用最新版本
+    /** Retrofit,是基于OkHttp开发，故会自动引入OkHttp **/
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    /** Retrofit转换库,会自动引入gson **/
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+
 }

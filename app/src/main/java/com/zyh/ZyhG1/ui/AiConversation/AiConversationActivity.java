@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,14 +17,25 @@ import com.google.gson.Gson;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.model.Msg;
 import com.zyh.ZyhG1.adapter.MsgAdapter;
+import com.zyh.ZyhG1.model.OllamaRequest;
 import com.zyh.ZyhG1.model.OllamaResponse;
+import com.zyh.ZyhG1.network.AppService;
 import com.zyh.ZyhG1.network.OkHttpHelper;
 import com.zyh.ZyhG1.network.RequestHelper;
+import com.zyh.ZyhG1.singleton.OllamaServiceCreator;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AiConversationActivity extends BaseActivity {
     String msg = "Android AiConversationActivity: ";
@@ -76,6 +88,7 @@ public class AiConversationActivity extends BaseActivity {
             _inputText.setText("");
             SetStatus(Type_Disable);
 
+            /* 方法一 网络请求需要在子线程中完成
             new Thread(() -> {
                 try {
                     // String retContent = _requestHelper.post("http://192.168.100.198:11434/api/generate", "{\"model\": \"qwen\",\"prompt\": \"" + content + "\",\"stream\": false}");//调用我们写的post方法
@@ -101,6 +114,69 @@ public class AiConversationActivity extends BaseActivity {
                     });
                 }
             }).start();
+            **/
+
+            /* 方法二 OkHttp回调请求
+            OkHttpHelper.post("http://192.168.100.198:11434/api/generate", "{\"model\": \"qwen\",\"prompt\": \"" + content + "\",\"stream\": false}", new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    // 异常情况处理
+                    runOnUiThread(() -> {
+                        SetStatus(Type_Enable);
+                        Toast.makeText(AiConversationActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    // 得到服务器返回的具体内容
+                    if (response.body() != null) {
+                        String responseData = response.body().string();
+                        if (!responseData.isEmpty()) {
+                            Gson gson = new Gson();
+                            OllamaResponse ollamaResponse = gson.fromJson(responseData, OllamaResponse.class);
+                            if (ollamaResponse != null && !ollamaResponse.response.isEmpty()) {
+                                runOnUiThread(() -> {
+                                    SetMsg(Msg.TYPE_RECEIVED, ollamaResponse.response);
+                                });
+                            }
+                        }
+                    }
+                    runOnUiThread(() -> {
+                        SetStatus(Type_Enable);
+                    });
+                }
+            });
+            **/
+
+            /* 方法三 Retrofit **/
+            AppService appService = OllamaServiceCreator.create(AppService.class);
+            OllamaRequest requestBody = new OllamaRequest();
+            requestBody.model = "qwen";
+            requestBody.prompt = content;
+            requestBody.stream = false;
+            appService.getOllamaData("generate", requestBody).enqueue(new retrofit2.Callback<OllamaResponse>() {
+                @Override
+                public void onResponse(@NonNull retrofit2.Call<OllamaResponse> call, @NonNull retrofit2.Response<OllamaResponse> response) {
+                    OllamaResponse ollamaResponse = response.body();
+                    if (ollamaResponse != null && !ollamaResponse.response.isEmpty()) {
+                        runOnUiThread(() -> {
+                            SetMsg(Msg.TYPE_RECEIVED, ollamaResponse.response);
+                        });
+                    }
+                    runOnUiThread(() -> {
+                        SetStatus(Type_Enable);
+                    });
+                }
+
+                @Override
+                public void onFailure(@NonNull retrofit2.Call<OllamaResponse> call, @NonNull Throwable throwable) {
+                    runOnUiThread(() -> {
+                        SetStatus(Type_Enable);
+                        Toast.makeText(AiConversationActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+                }
+            });
         }
     }
 

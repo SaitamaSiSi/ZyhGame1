@@ -13,8 +13,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.zyh.ZyhG1.network.AppService;
 import com.zyh.ZyhG1.network.OkHttpHelper;
 import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
@@ -24,7 +26,15 @@ import com.zyh.ZyhG1.ui.AndroidStudy.ThreadActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends BaseActivity {
     // 下拉选择器
@@ -140,31 +150,46 @@ public class MainActivity extends BaseActivity {
         progressBar.setVisibility(View.VISIBLE);
         EditText editText = findViewById(R.id.main_edit_text);
         String url = editText.getText().toString();
-        //网络请求需要在子线程中完成
-        new Thread(() -> {
-            try {
-                // RequestHelper request = new RequestHelper();
-                // String res = request.get(url);
-                OkHttpHelper request = new OkHttpHelper();
-                String res = request.get(url);
-                // 在这里你可以将responseBody设置为TextView的文本或其他UI更新操作
-                // 但请注意，这需要在主线程上执行
-                runOnUiThread(() -> {
-                    TextView textView = findViewById(R.id.main_msg);
-                    textView.setText(res);
-                });
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    TextView textView = findViewById(R.id.main_msg);
-                    textView.setText(e.getMessage());
-                });
+
+        Retrofit retofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        AppService appService = retofit.create(AppService.class);
+        appService.getData("").enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(@NonNull retrofit2.Call<ResponseBody> call, @NonNull retrofit2.Response<ResponseBody> response) {
+                try {
+                    if (response.body() != null) {
+                        String responseData = response.body().string();
+                        runOnUiThread(() -> {
+                            TextView textView = findViewById(R.id.main_msg);
+                            textView.setText(responseData);
+                            progressBar.setVisibility(View.INVISIBLE);
+                        });
+                    }
+                } catch (IOException e) {
+                    runOnUiThread(() -> {
+                        TextView textView = findViewById(R.id.main_msg);
+                        textView.setText(e.getMessage());
+                    });
+                }
+                finally {
+                    runOnUiThread(() -> {
+                        progressBar.setVisibility(View.INVISIBLE);
+                    });
+                }
             }
-            finally {
+
+            @Override
+            public void onFailure(@NonNull retrofit2.Call<ResponseBody> call, @NonNull Throwable throwable) {
                 runOnUiThread(() -> {
+                    TextView textView = findViewById(R.id.main_msg);
+                    textView.setText(throwable.getMessage());
                     progressBar.setVisibility(View.INVISIBLE);
                 });
             }
-        }).start();
+        });
     }
 
     public void onQuitClick(View view) {
