@@ -83,4 +83,7 @@ dependencies {
 
     /** exifinterface **/
     implementation("androidx.exifinterface:exifinterface:1.3.6")
+
+    /** OkHttp **/
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }

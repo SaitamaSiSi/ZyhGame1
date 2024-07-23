@@ -8,26 +8,27 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class RequestHelper {
-    public String post(String url1, String data) {
+    public String post(String urlStr, String param) {
+        HttpURLConnection connection = null;
         try {
-            URL url = new URL(url1);
-            HttpURLConnection Connection = (HttpURLConnection) url.openConnection();//创建连接
-            Connection.setRequestMethod("POST");
-            Connection.setConnectTimeout(10 * 60 * 1000);
-            Connection.setReadTimeout(10 * 60 * 1000);
-            Connection.setDoInput(true);
-            Connection.setDoOutput(true);
-            Connection.setUseCaches(false);
-            Connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-            Connection.connect();
-            DataOutputStream dos = new DataOutputStream(Connection.getOutputStream());
-            dos.write(data.getBytes(StandardCharsets.UTF_8));
+            URL url = new URL(urlStr);
+            connection = (HttpURLConnection) url.openConnection();//创建连接
+            connection.setRequestMethod("POST");
+            connection.setConnectTimeout(10 * 60 * 1000);
+            connection.setReadTimeout(10 * 60 * 1000);
+            connection.setDoInput(true);
+            connection.setDoOutput(true);
+            connection.setUseCaches(false);
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.connect();
+            DataOutputStream dos = new DataOutputStream(connection.getOutputStream());
+            dos.write(param.getBytes(StandardCharsets.UTF_8));
             dos.flush();
             dos.close();//写完记得关闭
-            int responseCode = Connection.getResponseCode();
+            int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 // 判断请求是否成功
-                InputStream inputStream = Connection.getInputStream();
+                InputStream inputStream = connection.getInputStream();
                 ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
                 byte[] bytes = new byte[1024];
                 int length = 0;
@@ -41,19 +42,24 @@ public class RequestHelper {
             }
         } catch (Exception e) {
             return "-1";//出现异常也返回-1
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
 
-    public String get(String url1) {
+    public String get(String urlStr) {
+        HttpURLConnection connection = null;
         try {
-            URL url = new URL(url1);
-            HttpURLConnection Connection = (HttpURLConnection) url.openConnection();
-            Connection.setRequestMethod("GET");
-            Connection.setConnectTimeout(3000);
-            Connection.setReadTimeout(3000);
-            int responseCode = Connection.getResponseCode();
+            URL url = new URL(urlStr);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setConnectTimeout(3000);
+            connection.setReadTimeout(3000);
+            int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
-                InputStream inputStream = Connection.getInputStream();
+                InputStream inputStream = connection.getInputStream();
                 ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
                 byte[] bytes = new byte[1024];
                 int length = 0;
@@ -67,6 +73,10 @@ public class RequestHelper {
             }
         } catch (Exception e) {
             return "-1";
+        } finally {
+            if (connection != null) {
+                connection.disconnect();
+            }
         }
     }
 }

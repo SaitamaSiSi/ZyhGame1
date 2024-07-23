@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.zyh.ZyhG1.network.OkHttpHelper;
 import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.NotificationActivity;
@@ -26,7 +27,6 @@ import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
 import java.util.Objects;
 
 public class MainActivity extends BaseActivity {
-    String activity_title = "Android MainActivity: ";
     // 下拉选择器
     Spinner game_selector;
     // 下拉选项内容
@@ -61,8 +61,6 @@ public class MainActivity extends BaseActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // 在这里处理选项被选中的逻辑
                 current_select = game_select_options[position];
-                // ...
-                Log.d(activity_title, "Select => " + current_select);
             }
 
             @Override
@@ -90,7 +88,6 @@ public class MainActivity extends BaseActivity {
     }*/
 
     public void onOKClick(View view) {
-        Log.d(activity_title, "The onOKClick() event");
         switch (current_select) {
             case "拼图游戏":
                 Intent intent1 = new Intent(MainActivity.this, PtGameActivity.class);
@@ -130,7 +127,8 @@ public class MainActivity extends BaseActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 if (data != null) {
-                    Log.d(activity_title, Objects.requireNonNull(data.getStringExtra("return")));
+                    // 跳转页面关闭返回的信息
+                    String retStr = data.getStringExtra("return");
                 }
             }
         }
@@ -138,7 +136,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onRequestClick(View view) {
-        Log.d(activity_title, "The OnLogin() event");
         ProgressBar progressBar = findViewById(R.id.main_process);
         progressBar.setVisibility(View.VISIBLE);
         EditText editText = findViewById(R.id.main_edit_text);
@@ -146,19 +143,17 @@ public class MainActivity extends BaseActivity {
         //网络请求需要在子线程中完成
         new Thread(() -> {
             try {
-                Thread.sleep(3000);
-                RequestHelper request = new RequestHelper();
-                // String res = request.post("https://www.baidu.com", "username=root&password=12345");//调用我们写的post方法
-                // String res = request.get("http://192.168.1.149:8200/");//调用我们写的get方法
+                // RequestHelper request = new RequestHelper();
+                // String res = request.get(url);
+                OkHttpHelper request = new OkHttpHelper();
                 String res = request.get(url);
-                Log.d(String.valueOf(Log.INFO), res);
                 // 在这里你可以将responseBody设置为TextView的文本或其他UI更新操作
                 // 但请注意，这需要在主线程上执行
                 runOnUiThread(() -> {
                     TextView textView = findViewById(R.id.main_msg);
                     textView.setText(res);
                 });
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 runOnUiThread(() -> {
                     TextView textView = findViewById(R.id.main_msg);
                     textView.setText(e.getMessage());

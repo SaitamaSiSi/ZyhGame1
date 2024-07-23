@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请输入测试Get地址"
-            android:text="https://www.baidu.com"
+            android:text="http://192.168.100.198:11434"
             android:textSize="20sp" />
 
         <Button

@@ -17,6 +17,7 @@ import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.model.Msg;
 import com.zyh.ZyhG1.model.MsgAdapter;
 import com.zyh.ZyhG1.model.OllamaResponse;
+import com.zyh.ZyhG1.network.OkHttpHelper;
 import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
@@ -24,12 +25,16 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+
 public class AiConversationActivity extends BaseActivity {
     String msg = "Android AiConversationActivity: ";
 
     private static final int Type_Disable = 0;
     private static final int Type_Enable = 1;
     private final RequestHelper _requestHelper = new RequestHelper();
+    private final OkHttpHelper _okHttpHelper = new OkHttpHelper();
     private final ArrayList<Msg> _msgList = new ArrayList<>();
     private MsgAdapter _adapter = null;
     RecyclerView _recyclerView;
@@ -76,10 +81,9 @@ public class AiConversationActivity extends BaseActivity {
 
             new Thread(() -> {
                 try {
-                    // String retContent= _requestHelper.get("https://www.baidu.com");
-                    // String retContent= _requestHelper.get("http://192.168.100.198:11434");
-                    String retContent = _requestHelper.post("http://192.168.100.198:11434/api/generate", "{\"model\": \"qwen\",\"prompt\": \"" + content + "\",\"stream\": false}");//调用我们写的post方法
-                    // String retContent = _requestHelper.post("http://192.168.1.149:8200/_sql", "{\"query\": \"SELECT NOW()\",\"fetch_size\": 1}");//调用我们写的post方法
+                    // String retContent = _requestHelper.post("http://192.168.100.198:11434/api/generate", "{\"model\": \"qwen\",\"prompt\": \"" + content + "\",\"stream\": false}");//调用我们写的post方法
+                    String retContent = _okHttpHelper.post("http://192.168.100.198:11434/api/generate", "{\"model\": \"qwen\",\"prompt\": \"" + content + "\",\"stream\": false}");
+
                     if (!retContent.isEmpty()) {
                         Gson gson = new Gson();
                         OllamaResponse ollamaResponse = gson.fromJson(retContent, OllamaResponse.class);
