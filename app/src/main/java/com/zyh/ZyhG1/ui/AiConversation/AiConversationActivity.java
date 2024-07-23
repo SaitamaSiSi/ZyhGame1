@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.model.Msg;
-import com.zyh.ZyhG1.model.MsgAdapter;
+import com.zyh.ZyhG1.adapter.MsgAdapter;
 import com.zyh.ZyhG1.model.OllamaResponse;
 import com.zyh.ZyhG1.network.OkHttpHelper;
 import com.zyh.ZyhG1.network.RequestHelper;
@@ -24,9 +24,6 @@ import com.zyh.ZyhG1.ui.BaseActivity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-
-import okhttp3.FormBody;
-import okhttp3.RequestBody;
 
 public class AiConversationActivity extends BaseActivity {
     String msg = "Android AiConversationActivity: ";

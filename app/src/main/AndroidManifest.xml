@@ -58,7 +58,7 @@
         <activity android:name=".ui.AndroidStudy.NotificationActivity" />
         <activity android:name=".ui.AndroidStudy.ThreadActivity" />
         <receiver
-            android:name=".model.MyBroadcastReceiver"
+            android:name=".ulit.MyBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter android:priority="100">
@@ -66,7 +66,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".model.AnotherBroadcastReceiver"
+            android:name=".ulit.AnotherBroadcastReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

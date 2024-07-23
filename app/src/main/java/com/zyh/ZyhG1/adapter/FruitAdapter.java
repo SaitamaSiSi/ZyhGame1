@@ -1,4 +1,4 @@
-package com.zyh.ZyhG1.model;
+package com.zyh.ZyhG1.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zyh.ZyhG1.R;
+import com.zyh.ZyhG1.model.Fruit;
 import com.zyh.ZyhG1.ulit.ConvertHelper;
 
 import java.util.List;

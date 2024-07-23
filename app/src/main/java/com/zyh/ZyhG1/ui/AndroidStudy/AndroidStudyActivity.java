@@ -9,14 +9,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
-import com.zyh.ZyhG1.model.SimpleFragmentAdapter;
+import com.zyh.ZyhG1.adapter.SimpleFragmentAdapter;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
 public class AndroidStudyActivity extends BaseActivity {

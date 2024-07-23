@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.model.Fruit;
-import com.zyh.ZyhG1.model.FruitAdapter2;
+import com.zyh.ZyhG1.adapter.FruitAdapter2;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
 import java.util.ArrayList;

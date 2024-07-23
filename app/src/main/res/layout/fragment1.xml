@@ -28,6 +28,13 @@
                 android:layout_gravity="center"
                 android:text="Dialog Button" />
 
+            <Button
+                android:id="@+id/f1_btn_xml"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Xml Button" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

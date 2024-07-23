@@ -1,4 +1,4 @@
-package com.zyh.ZyhG1.model;
+package com.zyh.ZyhG1.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.zyh.ZyhG1.R;
+import com.zyh.ZyhG1.model.Msg;
 
 import java.util.List;
 
