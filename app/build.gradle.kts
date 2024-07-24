@@ -90,4 +90,8 @@ dependencies {
     /** Retrofit转换库,会自动引入gson **/
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
+    /** Material库,是基于Material Design的要求来设计 **/
+    implementation("com.google.android.material:material:1.1.0")
+    /** 开源项目CircleImageView,实现图片圆形化 **/
+    implementation("de.hdodenhof:circleimageview:3.0.1")
 }

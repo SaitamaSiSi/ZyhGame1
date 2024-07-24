@@ -25,6 +25,7 @@ import com.zyh.ZyhG1.ui.AndroidStudy.RunningPermissionActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.ThreadActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
+import com.zyh.ZyhG1.ui.material.MaterialActivity;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -126,6 +127,10 @@ public class MainActivity extends BaseActivity {
             case "多线程":
                 Intent intent6 = new Intent(MainActivity.this, ThreadActivity.class);
                 startActivity(intent6);
+                break;
+            case "Material Design":
+                Intent intent7 = new Intent(MainActivity.this, MaterialActivity.class);
+                startActivity(intent7);
                 break;
             default:
                 break;

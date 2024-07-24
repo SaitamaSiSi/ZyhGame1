@@ -57,6 +57,7 @@
         <activity android:name=".ui.AndroidStudy.RunningPermissionActivity" />
         <activity android:name=".ui.AndroidStudy.NotificationActivity" />
         <activity android:name=".ui.AndroidStudy.ThreadActivity" />
+        <activity android:name=".ui.material.MaterialActivity" />
         <receiver
             android:name=".ulit.MyBroadcastReceiver"
             android:enabled="true"
