@@ -8,5 +8,16 @@
         <item>AI问答</item>
         <item>多线程</item>
         <item>Material Design</item>
+        <item>Canvas</item>
+    </string-array>
+    <string-array name="VerticalType">
+        <item>上</item>
+        <item>中</item>
+        <item>下</item>
+    </string-array>
+    <string-array name="HorizontalType">
+        <item>左</item>
+        <item>中</item>
+        <item>右</item>
     </string-array>
 </resources>

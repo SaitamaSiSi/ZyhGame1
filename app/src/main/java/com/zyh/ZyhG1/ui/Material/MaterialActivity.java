@@ -1,10 +1,8 @@
-package com.zyh.ZyhG1.ui.material;
+package com.zyh.ZyhG1.ui.Material;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;

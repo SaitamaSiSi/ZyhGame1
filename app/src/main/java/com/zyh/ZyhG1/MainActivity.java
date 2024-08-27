@@ -4,35 +4,28 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.zyh.ZyhG1.network.AppService;
-import com.zyh.ZyhG1.network.OkHttpHelper;
-import com.zyh.ZyhG1.network.RequestHelper;
 import com.zyh.ZyhG1.ui.AiConversation.AiConversationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.NotificationActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.RunningPermissionActivity;
 import com.zyh.ZyhG1.ui.AndroidStudy.ThreadActivity;
 import com.zyh.ZyhG1.ui.BaseActivity;
 import com.zyh.ZyhG1.ui.PtGame.PtGameActivity;
-import com.zyh.ZyhG1.ui.material.MaterialActivity;
+import com.zyh.ZyhG1.ui.Material.MaterialActivity;
+import com.zyh.ZyhG1.ui.Canvas.CanvasActivity;
 
 import java.io.IOException;
-import java.util.Objects;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -131,6 +124,10 @@ public class MainActivity extends BaseActivity {
             case "Material Design":
                 Intent intent7 = new Intent(MainActivity.this, MaterialActivity.class);
                 startActivity(intent7);
+                break;
+            case "Canvas":
+                Intent intent8 = new Intent(MainActivity.this, CanvasActivity.class);
+                startActivity(intent8);
                 break;
             default:
                 break;

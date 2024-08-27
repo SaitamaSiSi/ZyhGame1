@@ -15,6 +15,7 @@ import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.singleton.ActivityCollector;
 import com.zyh.ZyhG1.ui.BaseActivity;
+import com.zyh.ZyhG1.ui.Canvas.CanvasActivity;
 
 public class LoginActivity extends BaseActivity {
     @Override
