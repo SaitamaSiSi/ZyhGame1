@@ -20,4 +20,16 @@
         <item>中</item>
         <item>右</item>
     </string-array>
+    <string-array name="ColorType">
+        <item>黑</item>
+        <item>白</item>
+        <item>红</item>
+        <item>黄</item>
+        <item>绿</item>
+        <item>蓝</item>
+    </string-array>
+    <string-array name="ScaleType">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
 </resources>
