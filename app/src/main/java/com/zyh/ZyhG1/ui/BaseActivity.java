@@ -6,9 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.Window;
-
-import androidx.appcompat.app.ActionBar;
+import android.view.WindowManager;
 
 import com.google.androidgamesdk.GameActivity;
 import com.zyh.ZyhG1.singleton.ActivityCollector;
@@ -26,6 +24,8 @@ public class BaseActivity extends GameActivity {
             actionBar.hide();
         }
         **/
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         ActivityCollector.addActivity(this);
     }

@@ -468,14 +468,16 @@ public class CanvasBaseView extends View {
             float chW = getCharWidth(ch);
             if (number + chW > totalW)
             {
-                hashMap.put(stringBuilder.toString(), number);
+                if (!stringBuilder.toString().isEmpty()) {
+                    hashMap.put(stringBuilder.toString(), number);
+                }
                 number = 0;
                 stringBuilder.setLength(0);
             }
             number += chW;
             stringBuilder.append(ch);
         }
-        if (number != 0)
+        if (number != 0 && !stringBuilder.toString().isEmpty())
         {
             hashMap.put(stringBuilder.toString(), number);
         }

@@ -85,7 +85,7 @@
             android:id="@+id/canvas_font_size_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textAlignment="textEnd"
             android:text="字号:"/>
         <EditText
@@ -99,7 +99,7 @@
             android:id="@+id/canvas_border_width_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textAlignment="textEnd"
             android:text="边框:"/>
         <EditText
@@ -113,7 +113,7 @@
             android:id="@+id/canvas_radius_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textAlignment="textEnd"
             android:text="圆角:"/>
         <EditText
@@ -127,7 +127,7 @@
             android:id="@+id/canvas_line_space_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:textAlignment="textEnd"
             android:text="间距:"/>
         <EditText
