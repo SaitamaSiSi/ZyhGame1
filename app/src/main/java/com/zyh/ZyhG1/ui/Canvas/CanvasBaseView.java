@@ -101,6 +101,50 @@ public class CanvasBaseView extends View {
         invalidate(); // 刷新
     }
 
+    public void UpObj(String uuid) {
+        boolean exchanged = false;
+        BaseObject objToMove = null;
+        for (BaseObject obj : objList) {
+            if (Objects.equals(obj._uuid, uuid)) {
+                objToMove = obj;
+                break;
+            }
+        }
+        if (objToMove != null) {
+            int index = objList.indexOf(objToMove);
+            if (index > 0) {
+                objList.remove(objToMove);
+                objList.add(index - 1, objToMove);
+                exchanged = true;
+            }
+        }
+        if (exchanged) {
+            invalidate(); // 刷新
+        }
+    }
+
+    public void DownObj(String uuid) {
+        boolean exchanged = false;
+        BaseObject objToMove = null;
+        for (BaseObject obj : objList) {
+            if (Objects.equals(obj._uuid, uuid)) {
+                objToMove = obj;
+                break;
+            }
+        }
+        if (objToMove != null) {
+            int index = objList.indexOf(objToMove);
+            if (index < objList.size() - 1) {
+                objList.remove(objToMove);
+                objList.add(index + 1, objToMove);
+                exchanged = true;
+            }
+        }
+        if (exchanged) {
+            invalidate(); // 刷新
+        }
+    }
+
     public void DelObj(String uuid) {
         boolean finded = false;
         int i = 0;

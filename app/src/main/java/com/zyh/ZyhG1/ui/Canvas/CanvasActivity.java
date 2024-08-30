@@ -277,11 +277,23 @@ public class CanvasActivity extends BaseActivity {
             // 处理输入框中的数据变化
             m_view.ChangeAngle(uuid, angle);
         });
+        fragment.SetUpListener((uuid, msg) -> {
+            // 处理输入框中的数据变化
+            m_view.DownObj(uuid);
+            m_adapter.downFragment(uuid);
+            m_adapter.notifyDataSetChanged();
+        });
+        fragment.SetDownListener((uuid, msg) -> {
+            // 处理输入框中的数据变化
+            m_view.UpObj(uuid);
+            //m_adapter.upFragment(uuid);
+            //m_adapter.notifyDataSetChanged();
+        });
         fragment.SetDelListener((uuid, msg) -> {
             // 处理输入框中的数据变化
             m_view.DelObj(uuid);
-            m_adapter.delFragment(uuid);
-            m_adapter.notifyDataSetChanged();
+            //m_adapter.delFragment(uuid);
+            //m_adapter.notifyDataSetChanged();
         });
 
         if (obj instanceof TextObject) {

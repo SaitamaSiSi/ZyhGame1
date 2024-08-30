@@ -40,6 +40,8 @@ public class CanvasFragment extends Fragment {
     private OnIntInputChangeListener m_radius_listener;
     private OnIntInputChangeListener m_line_space_listener;
     private OnIntInputChangeListener m_angle_listener;
+    private OnInputChangeListener m_up_listener;
+    private OnInputChangeListener m_down_listener;
     private OnHorizontalChangeListener m_horizontal_listener;
     private OnVerticalChangeListener m_vertical_listener;
     private OnInputChangeListener m_text_listener;
@@ -145,6 +147,18 @@ public class CanvasFragment extends Fragment {
             }
         });
 
+        Button upB = view.findViewById(R.id.canvas_obj_up);
+        upB.setOnClickListener(v-> {
+            if (m_up_listener != null) {
+                m_up_listener.onInputChanged(m_object._uuid, "");
+            }
+        });
+        Button downB = view.findViewById(R.id.canvas_obj_down);
+        downB.setOnClickListener(v-> {
+            if (m_down_listener != null) {
+                m_down_listener.onInputChanged(m_object._uuid, "");
+            }
+        });
         Button delB = view.findViewById(R.id.canvas_obj_del);
         delB.setOnClickListener(v-> {
             if (m_del_listener != null) {
@@ -414,6 +428,12 @@ public class CanvasFragment extends Fragment {
     }
     public void SetAngleChangeListener(OnIntInputChangeListener listener) {
         this.m_angle_listener = listener;
+    }
+    public void SetUpListener(OnInputChangeListener listener) {
+        this.m_up_listener = listener;
+    }
+    public void SetDownListener(OnInputChangeListener listener) {
+        this.m_down_listener = listener;
     }
     public void SetHorizontalChangeListener(OnHorizontalChangeListener listener) {
         this.m_horizontal_listener = listener;

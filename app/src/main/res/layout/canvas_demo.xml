@@ -124,7 +124,7 @@ android:background="#d8e0e8">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/canvas_viewPager2"
-            android:layout_height="190dp"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent" />
 
     </LinearLayout>
