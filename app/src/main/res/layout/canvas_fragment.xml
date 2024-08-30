@@ -35,7 +35,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_y"/>
                 <TextView
                     android:id="@+id/canvas_y_label"
                     android:layout_width="0dp"
@@ -50,7 +51,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_w"/>
                 <TextView
                     android:id="@+id/canvas_w_label"
                     android:layout_width="0dp"
@@ -65,7 +67,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_h"/>
                 <TextView
                     android:id="@+id/canvas_h_label"
                     android:layout_width="0dp"
@@ -107,7 +110,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_border_width"/>
                 <TextView
                     android:id="@+id/canvas_border_width_label"
                     android:layout_width="0dp"
@@ -122,7 +126,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_radius"/>
                 <TextView
                     android:id="@+id/canvas_radius_label"
                     android:layout_width="0dp"
@@ -137,7 +142,8 @@
                     android:layout_weight="2"
                     android:singleLine="true"
                     android:inputType="number"
-                    android:paddingTop="0dp"/>
+                    android:paddingTop="0dp"
+                    android:nextFocusDown="@+id/canvas_line_space"/>
                 <TextView
                     android:id="@+id/canvas_line_space_label"
                     android:layout_width="0dp"
