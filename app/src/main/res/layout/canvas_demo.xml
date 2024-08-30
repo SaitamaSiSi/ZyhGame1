@@ -81,14 +81,14 @@ android:background="#d8e0e8">
         android:layout_marginBottom="0dp">
 
         <TextView
-            android:id="@+id/canvas_border_color"
+            android:id="@+id/canvas_color"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="textEnd"
             android:text="画布颜色:"/>
         <Spinner
-            android:id="@+id/canvas_border_color_spinner"
+            android:id="@+id/canvas_color_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"/>

@@ -11,9 +11,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -51,25 +49,57 @@ public class CanvasBaseView extends View {
     }
 
     private void init() {
+        initPaint();
+    }
+
+    private void initPaint() {
         canvasPaint = new Paint();
+        borderPaint = new Paint();
+        borderPaint.setStyle(Paint.Style.STROKE);
 
         textPaint = new Paint();
-        //textPaint.setStyle(Paint.Style.STROKE);//描边模式
-        textPaint.setStrokeWidth(1f);//设置画笔粗细度
-        textPaint.setAntiAlias(true);//抗锯齿
-        textPaint.setDither(true);//防抖动
+        //设置画笔粗细度 1f = 1px
+        textPaint.setStrokeWidth(1f);
+        //抗锯齿
+        textPaint.setAntiAlias(true);
+        //防抖动
+        textPaint.setDither(true);
+        //设置画笔颜色
+        //textPaint.setColor(Color.RED);
+        // 类型1：Paint.Style.FILL_AND_STROKE（描边+填充）
+        // 类型2：Paint.Style.FILL（只填充不描边）
+        // 类型3：Paint.Style.STROKE（只描边不填充）
+        //textPaint.setStyle(Paint.Style.STROKE);
+        // 设置Shader
+        // 即着色器，定义了图形的着色、外观
+        // 可以绘制出多彩的图形
+        // 具体请参考文章：http://blog.csdn.net/iispring/article/details/50500106
+        //textPaint.setShader(Shader shader);
+        //设置画笔的a,r,p,g值
+        //textPaint.setARGB(int a, int r, int g, int b);
+        //设置透明度
+        //textPaint.setAlpha(int a);
+        //设置字体大小
+        //textPaint.setTextSize(float textSize);
+        //设置对齐方式,绘制x,y位置
+        // LEFT：左对齐
+        // CENTER：居中对齐
+        // RIGHT：右对齐
+        //textPaint.setTextAlign(Paint.Align.LEFT);
         //设置是否为粗体文字
         //textPaint.setFakeBoldText(true);
         //设置下划线
         //textPaint.setUnderlineText(true);
         //设置带有删除线效果
         //textPaint.setStrikeThruText(true);
+        //设置斜体
+        //textPaint.setTextSkewX(-0.5f);
+        //设置文字阴影
+        //textPaint.setShadowLayer(5,5,5,Color.YELLOW);
+        //设置字体
         //textPaint.setTypeface(Typeface.create(Typeface.SERIF, Typeface.NORMAL));
         //textPaint.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.NORMAL));
         //textPaint.setTypeface(Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL));
-
-        borderPaint = new Paint();
-        borderPaint.setStyle(Paint.Style.STROKE); // 设置为边框样式
     }
 
     @Override
@@ -277,6 +307,40 @@ public class CanvasBaseView extends View {
         }
     }
 
+    public void ChangeBorderColor(String uuid, String borderColor)
+    {
+        boolean changed = false;
+        for (int i = 0; i < objList.size(); i++) {
+            BaseObject obj = objList.get(i);
+            if (Objects.equals(uuid, obj._uuid)) {
+                TextObject textObj = (TextObject) obj;
+                textObj._borderColor = borderColor;
+                changed = true;
+                break;
+            }
+        }
+        if (changed) {
+            invalidate(); // 刷新
+        }
+    }
+
+    public void ChangeFontBackColor(String uuid, String fontBackColor)
+    {
+        boolean changed = false;
+        for (int i = 0; i < objList.size(); i++) {
+            BaseObject obj = objList.get(i);
+            if (Objects.equals(uuid, obj._uuid)) {
+                TextObject textObj = (TextObject) obj;
+                textObj._fontBackColor = fontBackColor;
+                changed = true;
+                break;
+            }
+        }
+        if (changed) {
+            invalidate(); // 刷新
+        }
+    }
+
     public void ChangeBorderWidth(String uuid, int borderWidth)
     {
         boolean changed = false;
@@ -441,6 +505,7 @@ public class CanvasBaseView extends View {
         float borderWidth = text.GetBorderWidth();
         int fontColor = text.GetFontColor();
         int borderColor = text.GetBorderColor();
+        int fontBackColor = text.GetFontBackColor();
         textPaint.setColor(fontColor);
         textPaint.setTextSize(fontSize);
 
@@ -451,6 +516,22 @@ public class CanvasBaseView extends View {
         matrix.setRotate(text.GetAngle(), text.GetX(), text.GetY());
         // 将矩阵应用到画布上
         canvas.setMatrix(matrix);
+
+        if (borderWidth > 0) {
+            borderPaint.setColor(borderColor); // 边框颜色
+            borderPaint.setStrokeWidth(borderWidth); // 设置边框宽度
+            borderPaint.setStyle(Paint.Style.STROKE); // 设置填充模式
+            // 确定矩形的边界
+            RectF rect = new RectF(x, y, x + w, y + h);
+            // 绘制边框矩形
+            canvas.drawRoundRect(rect, radius, radius, borderPaint);
+
+            if (fontBackColor != -1) {
+                borderPaint.setColor(fontBackColor);
+                borderPaint.setStyle(Paint.Style.FILL);
+                canvas.drawRoundRect(rect, radius, radius, borderPaint);
+            }
+        }
 
         LinkedHashMap<String, Float> hashMap = calculateText(text._text, w);
         int index = 0;
@@ -483,14 +564,7 @@ public class CanvasBaseView extends View {
             index++;
         }
 
-        if (borderWidth > 0) {
-            borderPaint.setColor(borderColor); // 边框颜色
-            borderPaint.setStrokeWidth(borderWidth); // 设置边框宽度
-            // 确定矩形的边界
-            RectF rect = new RectF(x, y, x + w, y + h);
-            // 绘制边框矩形
-            canvas.drawRoundRect(rect, radius, radius, borderPaint);
-        }
+
 
         canvas.restore();
     }
@@ -529,77 +603,6 @@ public class CanvasBaseView extends View {
         }
 
         return hashMap;
-    }
-
-    private void drawTextOld(Canvas canvas, TextObject text)
-    {
-        float fontSize = bordScale * text._fontSize;
-        float lineSpace = bordScale * text._lineSpace;
-        textPaint.setColor(Color.RED);
-        textPaint.setTextSize(fontSize);
-        int screenW = getWidth(); // 获取屏幕宽度（以px为单位）
-        int screenH = getHeight();
-        int order = 0;
-        int AMEND_LENGTH = 8; // 垂直修正
-
-        LinkedHashMap<String, Float> hashMap = calculateText(text._text, screenW);
-        int count = hashMap.size();
-
-        if (text._vertical == TextObject.VerticalType.BOTTOM) {
-            if (text._horizontal == TextObject.HorizontalType.LEFT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), 0, screenH - (fontSize + lineSpace) * (count - 1 - order) - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.RIGHT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), screenW - entity.getValue(), screenH - (fontSize + lineSpace) * (count - 1 - order) - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.CENTER) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), (screenW - entity.getValue()) / 2, screenH - (fontSize + lineSpace) * (count - 1 - order) - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            }
-        }
-        else if (text._vertical == TextObject.VerticalType.TOP) {
-            if (text._horizontal == TextObject.HorizontalType.LEFT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), 0, fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.RIGHT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), screenW - entity.getValue(), fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.CENTER) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), (screenW - entity.getValue()) / 2, fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            }
-        }
-        else if (text._vertical == TextObject.VerticalType.MIDDLE) {
-            float space = (screenH - fontSize * count - lineSpace * (count - 1)) / 2;
-            if (text._horizontal == TextObject.HorizontalType.LEFT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), 0, space + fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.RIGHT) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), screenW - entity.getValue(), space + fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            } else if (text._horizontal == TextObject.HorizontalType.CENTER) {
-                for (LinkedHashMap.Entry<String, Float> entity : hashMap.entrySet()) {
-                    canvas.drawText(entity.getKey(), (screenW - entity.getValue()) / 2, space + fontSize * (order + 1) + lineSpace * order - AMEND_LENGTH, textPaint);
-                    order++;
-                }
-            }
-        }
     }
 
     protected void drawPoint(Canvas canvas)

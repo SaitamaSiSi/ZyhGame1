@@ -39,6 +39,9 @@ public class CanvasFragment extends Fragment {
     private OnIntInputChangeListener m_font_size_listener;
     String[] m_font_color_opt;
     private OnInputChangeListener m_font_color_listener;
+    private OnInputChangeListener m_border_color_listener;
+    String[] m_font_back_color_opt;
+    private OnInputChangeListener m_font_back_color_listener;
     private OnIntInputChangeListener m_border_listener;
     private OnIntInputChangeListener m_radius_listener;
     private OnIntInputChangeListener m_line_space_listener;
@@ -178,9 +181,13 @@ public class CanvasFragment extends Fragment {
     private void UseBaseObject(View view) {
         if (m_object instanceof ImgObject) {
             view.findViewById(R.id.canvas_font_size_label).setVisibility(View.GONE);
-            view.findViewById(R.id.canvas_font_color_label).setVisibility(View.GONE);
             view.findViewById(R.id.canvas_font_size).setVisibility(View.GONE);
+            view.findViewById(R.id.canvas_font_color_label).setVisibility(View.GONE);
             view.findViewById(R.id.canvas_font_color).setVisibility(View.GONE);
+            view.findViewById(R.id.canvas_border_color_label).setVisibility(View.GONE);
+            view.findViewById(R.id.canvas_border_color).setVisibility(View.GONE);
+            view.findViewById(R.id.canvas_font_back_color_label).setVisibility(View.GONE);
+            view.findViewById(R.id.canvas_font_back_color).setVisibility(View.GONE);
             view.findViewById(R.id.canvas_border_width_label).setVisibility(View.GONE);
             view.findViewById(R.id.canvas_border_width).setVisibility(View.GONE);
             view.findViewById(R.id.canvas_radius_label).setVisibility(View.GONE);
@@ -249,6 +256,60 @@ public class CanvasFragment extends Fragment {
                 textObj._fontColor = m_font_color_opt[position];
                 if (m_font_color_listener != null) {
                     m_font_color_listener.onInputChanged(m_object._uuid, textObj._fontColor);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // 在这里处理没有选项被选中的逻辑（如果需要）
+            }
+        });
+
+        Spinner borderColorS = view.findViewById(R.id.canvas_border_color);
+        // 将适配器设置到Spinner中
+        borderColorS.setAdapter(fontColorAdapter);
+        // 遍历Adapter中的数据
+        for (int i = 0; i < m_font_color_opt.length; i++) {
+            if (Objects.equals(m_font_color_opt[i], textObj._borderColor)) {
+                borderColorS.setSelection(i);
+            }
+        }
+        borderColorS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                textObj._borderColor = m_font_color_opt[position];
+                if (m_border_color_listener != null) {
+                    m_border_color_listener.onInputChanged(m_object._uuid, textObj._borderColor);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // 在这里处理没有选项被选中的逻辑（如果需要）
+            }
+        });
+
+        Spinner fontBackColorS = view.findViewById(R.id.canvas_font_back_color);
+        m_font_back_color_opt = getResources().getStringArray(R.array.ColorType2);
+        // 创建一个包含选项的数组适配器
+        ArrayAdapter<CharSequence> fontBackColorAdapter = ArrayAdapter.createFromResource(m_context,
+                R.array.ColorType2, android.R.layout.simple_spinner_item);
+        // 设置下拉选项框的样式
+        fontBackColorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // 将适配器设置到Spinner中
+        fontBackColorS.setAdapter(fontBackColorAdapter);
+        // 遍历Adapter中的数据
+        for (int i = 0; i < m_font_back_color_opt.length; i++) {
+            if (Objects.equals(m_font_back_color_opt[i], textObj._fontBackColor)) {
+                fontBackColorS.setSelection(i);
+            }
+        }
+        fontBackColorS.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                textObj._fontBackColor = m_font_back_color_opt[position];
+                if (m_font_back_color_listener != null) {
+                    m_font_back_color_listener.onInputChanged(m_object._uuid, textObj._fontBackColor);
                 }
             }
 
@@ -428,6 +489,12 @@ public class CanvasFragment extends Fragment {
     }
     public void SetFontColorChangeListener(OnInputChangeListener listener) {
         this.m_font_color_listener = listener;
+    }
+    public void SetBorderColorChangeListener(OnInputChangeListener listener) {
+        this.m_border_color_listener = listener;
+    }
+    public void SetFontBackColorChangeListener(OnInputChangeListener listener) {
+        this.m_font_back_color_listener = listener;
     }
     public void SetBorderWidthChangeListener(OnIntInputChangeListener listener) {
         this.m_border_listener = listener;

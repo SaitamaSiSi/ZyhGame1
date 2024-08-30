@@ -25,6 +25,7 @@ public class TextObject extends BaseObject {
     public int _borderWidth = 1;
     public String _fontColor = "红";
     public String _borderColor = "蓝";
+    public String _fontBackColor = "无";
 
     public float GetFontSize() {
         return _scale * _fontSize;
@@ -48,9 +49,18 @@ public class TextObject extends BaseObject {
             return GetColor(_borderColor);
         }
     }
+    public int GetFontBackColor() {
+        if (Objects.equals(_fontBackColor, "无")) {
+            return -1;
+        } else {
+            return GetColor(_fontBackColor);
+        }
+    }
 
     public static int GetColor(String color) {
         switch (color) {
+            case "无":
+                return -1;
             case "黑":
             default:
                 return Color.BLACK;

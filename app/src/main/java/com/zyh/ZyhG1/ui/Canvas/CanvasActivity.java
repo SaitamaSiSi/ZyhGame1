@@ -44,8 +44,8 @@ public class CanvasActivity extends BaseActivity {
     ViewPager2 m_viewPager2;
     TabLayout m_tabLayout;
     CanvasFragmentAdapter m_adapter;
-    Spinner m_canvas_border_color;
-    String[] m_border_color_opt;
+    Spinner m_canvas_color;
+    String[] m_color_opt;
     Spinner m_canvas_scale;
     String[] m_scale_opt;
 
@@ -113,20 +113,20 @@ public class CanvasActivity extends BaseActivity {
 
         m_viewPager2.setOffscreenPageLimit(1);
 
-        m_canvas_border_color = findViewById(R.id.canvas_border_color_spinner);
-        m_border_color_opt = getResources().getStringArray(R.array.ColorType);
+        m_canvas_color = findViewById(R.id.canvas_color_spinner);
+        m_color_opt = getResources().getStringArray(R.array.ColorType);
         // 创建一个包含选项的数组适配器
         ArrayAdapter<CharSequence> colorAdapter = ArrayAdapter.createFromResource(this,
                 R.array.ColorType, android.R.layout.simple_spinner_item);
         // 设置下拉选项框的样式
         colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // 将适配器设置到Spinner中
-        m_canvas_border_color.setAdapter(colorAdapter);
+        m_canvas_color.setAdapter(colorAdapter);
         // 遍历Adapter中的数据
-        m_canvas_border_color.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        m_canvas_color.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                m_view.ChangeCanvasColor(m_border_color_opt[position]);
+                m_view.ChangeCanvasColor(m_color_opt[position]);
             }
 
             @Override
@@ -304,6 +304,14 @@ public class CanvasActivity extends BaseActivity {
             fragment.SetFontColorChangeListener((uuid, fontColor) -> {
                 // 处理输入框中的数据变化
                 m_view.ChangeFontColor(uuid, fontColor);
+            });
+            fragment.SetBorderColorChangeListener((uuid, fontColor) -> {
+                // 处理输入框中的数据变化
+                m_view.ChangeBorderColor(uuid, fontColor);
+            });
+            fragment.SetFontBackColorChangeListener((uuid, fontColor) -> {
+                // 处理输入框中的数据变化
+                m_view.ChangeFontBackColor(uuid, fontColor);
             });
             fragment.SetBorderWidthChangeListener((uuid, borderWidth) -> {
                 // 处理输入框中的数据变化

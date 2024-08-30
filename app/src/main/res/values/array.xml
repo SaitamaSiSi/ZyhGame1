@@ -28,6 +28,15 @@
         <item>绿</item>
         <item>蓝</item>
     </string-array>
+    <string-array name="ColorType2">
+        <item>无</item>
+        <item>黑</item>
+        <item>白</item>
+        <item>红</item>
+        <item>黄</item>
+        <item>绿</item>
+        <item>蓝</item>
+    </string-array>
     <string-array name="ScaleType">
         <item>1</item>
         <item>2</item>
