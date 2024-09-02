@@ -11,6 +11,7 @@ import android.graphics.Canvas;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
@@ -195,7 +196,8 @@ public class CanvasActivity extends BaseActivity {
                         m_view.AddImg(img);
                         CanvasFragment fragment = new CanvasFragment();
                         setListener(img, fragment);
-                        addFragment(img._uuid, "img", fragment);
+                        long key = SystemClock.elapsedRealtimeNanos();
+                        addFragment(img._uuid, "img", key, fragment);
                     }
                 }
                 break;
@@ -251,7 +253,8 @@ public class CanvasActivity extends BaseActivity {
         m_view.AddText(text);
         CanvasFragment fragment = new CanvasFragment();
         setListener(text, fragment);
-        addFragment(text._uuid, "text", fragment);
+        long key = SystemClock.elapsedRealtimeNanos();
+        addFragment(text._uuid, "text", key, fragment);
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -280,8 +283,8 @@ public class CanvasActivity extends BaseActivity {
         fragment.SetUpListener((uuid, msg) -> {
             // 处理输入框中的数据变化
             m_view.DownObj(uuid);
-            m_adapter.downFragment(uuid);
-            m_adapter.notifyDataSetChanged();
+            //m_adapter.downFragment(uuid);
+            //m_adapter.notifyDataSetChanged();
         });
         fragment.SetDownListener((uuid, msg) -> {
             // 处理输入框中的数据变化
@@ -292,8 +295,8 @@ public class CanvasActivity extends BaseActivity {
         fragment.SetDelListener((uuid, msg) -> {
             // 处理输入框中的数据变化
             m_view.DelObj(uuid);
-            //m_adapter.delFragment(uuid);
-            //m_adapter.notifyDataSetChanged();
+            m_adapter.delFragment(uuid);
+            m_adapter.notifyDataSetChanged();
         });
 
         if (obj instanceof TextObject) {
@@ -341,8 +344,8 @@ public class CanvasActivity extends BaseActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void addFragment(String uuid, String title, CanvasFragment fragment) {
-        m_adapter.addFragment(uuid, title, fragment);
+    public void addFragment(String uuid, String title, long key, CanvasFragment fragment) {
+        m_adapter.addFragment(uuid, title, key, fragment);
         m_adapter.notifyDataSetChanged();
         if (m_tabLayout.getTabCount() > 0) {
             m_tabLayout.selectTab(m_tabLayout.getTabAt(m_tabLayout.getTabCount() - 1));
@@ -357,12 +360,7 @@ public class CanvasActivity extends BaseActivity {
     }
 
     public void save(View view) {
-        Bitmap bitmap = Bitmap.createBitmap(m_view.getWidth(), m_view.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        m_view.draw(canvas);
-        // 将原始的Bitmap对象缩放到指定的宽度和高度
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 160, 160, true);
-        saveBitmapWithCustomName(scaledBitmap);
+        m_view.Save();;
 
         /* 自己选择文件夹 */
         //Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);

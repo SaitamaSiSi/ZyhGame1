@@ -1,6 +1,7 @@
 package com.zyh.ZyhG1.ui.Canvas;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
@@ -16,6 +17,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.zyh.ZyhG1.core.NormalHelper;
 import com.zyh.ZyhG1.model.BaseObject;
 import com.zyh.ZyhG1.model.ImgObject;
 import com.zyh.ZyhG1.model.TextObject;
@@ -25,6 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class CanvasBaseView extends View {
+    int defaultWidth = 160;
+    int defaultHeight = 160;
     private int defaultColor = Color.BLACK;
     private float canvasScale = 1;
     private float bordScale;
@@ -109,14 +113,19 @@ public class CanvasBaseView extends View {
 
         // 指定期望的 size
         //默认属性
-        int defaultWidth = 160;
         int width = resolveSize(defaultWidth, widthMeasureSpec);
-        int defaultHeight = 160;
         int height = resolveSize(defaultHeight, heightMeasureSpec);
         // 设置大小
         //setMeasuredDimension(width, height);
         bordScale = (float) width / defaultHeight;
         setMeasuredDimension(width, (int)(width / canvasScale));
+    }
+
+    public void Save() {
+        Bitmap bitmap = Bitmap.createBitmap(defaultWidth, (int) (defaultHeight / canvasScale), Bitmap.Config.RGB_565);
+        Canvas canvas = new Canvas(bitmap);
+        drawCanvas(canvas, true);
+        NormalHelper.SaveBitmapWithCustomName(bitmap, getContext());
     }
 
     public void AddText(TextObject text)
@@ -463,46 +472,54 @@ public class CanvasBaseView extends View {
     protected void onDraw(@NonNull Canvas canvas) {
         super.onDraw(canvas);
 
+        drawCanvas(canvas, false);
+    }
+
+    private void drawCanvas(Canvas canvas, boolean isSave) {
         canvasPaint.setColor(defaultColor);
         canvas.drawRect(0, 0, getWidth(), getHeight(), canvasPaint);
 
         for (BaseObject obj : objList) {
             if (obj instanceof ImgObject) {
                 ImgObject img = (ImgObject) obj;
-                drawBitmap(canvas, img);
+                drawBitmap(canvas, img, isSave);
             } else if (obj instanceof TextObject) {
                 TextObject text = (TextObject) obj;
-                drawText(canvas, text);
+                drawText(canvas, text, isSave);
             }
         }
     }
 
-    private void drawBitmap(Canvas canvas, ImgObject img)
+    private void drawBitmap(Canvas canvas, ImgObject img, boolean isSave)
     {
         canvas.save();
 
+        float x = img.GetX(isSave);
+        float y = img.GetY(isSave);
+        float w = img.GetW(isSave);
+        float h = img.GetH(isSave);
         Matrix matrix = new Matrix();
         // 创建一个旋转矩阵
-        matrix.setRotate(img.GetAngle(), img.GetX(), img.GetY());
+        matrix.setRotate(img.GetAngle(), x, y);
         // 将矩阵应用到画布上
         canvas.setMatrix(matrix);
 
-        RectF rectf = new RectF(img.GetX(), img.GetY(), img.GetX() + img.GetW(), img.GetY() + img.GetH());
+        RectF rectf = new RectF(x, y, x + w, y + h);
         canvas.drawBitmap(img._bitmap, null, rectf, textPaint);
 
         canvas.restore();
     }
 
-    private void drawText(Canvas canvas, TextObject text)
+    private void drawText(Canvas canvas, TextObject text, boolean isSave)
     {
-        float x = text.GetX();
-        float y = text.GetY();
-        float w = text.GetW();
-        float h = text.GetH();
-        float fontSize = text.GetFontSize();
-        float lineSpace = text.GetLineSpace();
+        float x = text.GetX(isSave);
+        float y = text.GetY(isSave);
+        float w = text.GetW(isSave);
+        float h = text.GetH(isSave);
+        float fontSize = text.GetFontSize(isSave);
+        float lineSpace = text.GetLineSpace(isSave);
         float radius = text.GetRadius();
-        float borderWidth = text.GetBorderWidth();
+        float borderWidth = text.GetBorderWidth(isSave);
         int fontColor = text.GetFontColor();
         int borderColor = text.GetBorderColor();
         int fontBackColor = text.GetFontBackColor();
@@ -513,7 +530,7 @@ public class CanvasBaseView extends View {
 
         Matrix matrix = new Matrix();
         // 创建一个旋转矩阵
-        matrix.setRotate(text.GetAngle(), text.GetX(), text.GetY());
+        matrix.setRotate(text.GetAngle(), x, y);
         // 将矩阵应用到画布上
         canvas.setMatrix(matrix);
 

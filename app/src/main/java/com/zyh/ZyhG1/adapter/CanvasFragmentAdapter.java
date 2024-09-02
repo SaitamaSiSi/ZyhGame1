@@ -9,11 +9,13 @@ import com.zyh.ZyhG1.ui.Canvas.CanvasFragment;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class CanvasFragmentAdapter extends FragmentStateAdapter {
     private LinkedHashMap<String, String> _tabTitles = new LinkedHashMap<>();
     private LinkedHashMap<String, CanvasFragment> _fragments = new LinkedHashMap<>();
+    private List<Long> mFragmentHashCodes = new ArrayList<>();
 
     public CanvasFragmentAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
@@ -27,16 +29,27 @@ public class CanvasFragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return _fragments.size();
+        return _tabTitles.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return mFragmentHashCodes.get(position).hashCode();
+    }
+
+    @Override
+    public boolean containsItem(long itemId) {
+        return mFragmentHashCodes.contains(itemId);
     }
 
     public CharSequence getPageTitle(int position) {
         return getStringAtPosition(position);
     }
 
-    public void addFragment(String uuid, String title, CanvasFragment fragment) {
+    public void addFragment(String uuid, String title, long key, CanvasFragment fragment) {
         _tabTitles.put(uuid, title);
         _fragments.put(uuid, fragment);
+        mFragmentHashCodes.add(key);
     }
     public void upFragment(String uuid) {
         _tabTitles = swapPre(_tabTitles, uuid);
@@ -47,12 +60,22 @@ public class CanvasFragmentAdapter extends FragmentStateAdapter {
         _fragments = swapNext(_fragments, uuid);
     }
     public void delFragment(String uuid) {
+        int index = 0;
+        int i = 0;
+        for (LinkedHashMap.Entry<String, String> entity : _tabTitles.entrySet()) {
+            if (Objects.equals(entity.getValue(), uuid)) {
+                index = i;
+            }
+            i++;
+        }
         _tabTitles.remove(uuid);
         _fragments.remove(uuid);
+        mFragmentHashCodes.remove(index);
     }
     public void clearFragment() {
         _tabTitles.clear();
         _fragments.clear();
+        mFragmentHashCodes.clear();
     }
 
     public <K, V> LinkedHashMap<K, V> swapPre(LinkedHashMap<K, V> map, K sourceKey) {

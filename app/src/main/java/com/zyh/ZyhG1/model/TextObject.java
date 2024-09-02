@@ -21,20 +21,36 @@ public class TextObject extends BaseObject {
     public String _text = "文本内容";
     public int _fontSize = 25;
     public int _lineSpace = 0;
-    public int _radius = 25;
-    public int _borderWidth = 1;
+    public int _radius = 0;
+    public int _borderWidth = 0;
     public String _fontColor = "红";
     public String _borderColor = "蓝";
     public String _fontBackColor = "无";
 
-    public float GetFontSize() {
-        return _scale * _fontSize;
+    public float GetFontSize(boolean isOri) {
+        if (isOri) {
+            return _fontSize;
+        } else {
+            return _scale * _fontSize;
+        }
     }
-    public float GetLineSpace() {
-        return _scale * _lineSpace;
+    public float GetLineSpace(boolean isOri) {
+        if (isOri) {
+            return _lineSpace;
+        } else {
+            return _scale * _lineSpace;
+        }
     }
-    public float GetRadius() { return _radius; }
-    public float GetBorderWidth() { return _scale * _borderWidth; }
+    public float GetRadius() {
+        return _radius;
+    }
+    public float GetBorderWidth(boolean isOri) {
+        if (isOri) {
+            return _borderWidth;
+        } else {
+            return _scale * _borderWidth;
+        }
+    }
     public int GetFontColor() {
         if (Objects.equals(_fontColor, "")) {
             return Color.RED;
