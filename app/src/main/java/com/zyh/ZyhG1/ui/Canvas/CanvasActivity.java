@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -24,6 +27,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.zyh.ZyhG1.components.ColorPickerDialog;
 import com.zyh.ZyhG1.MainActivity;
 import com.zyh.ZyhG1.R;
 import com.zyh.ZyhG1.adapter.CanvasFragmentAdapter;
@@ -49,12 +53,14 @@ public class CanvasActivity extends BaseActivity {
     String[] m_color_opt;
     Spinner m_canvas_scale;
     String[] m_scale_opt;
+    Context m_context;
 
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
         setContentView(R.layout.canvas_demo);
 
+        m_context = this.getBaseContext();
         m_view = findViewById(R.id.canvas_demo_view);
 
         InitViewPager();
@@ -245,6 +251,25 @@ public class CanvasActivity extends BaseActivity {
         intent.setType("image/*");
         // TODO 方法已弃用
         startActivityForResult(intent, FROM_ALBUM);
+
+//        // 颜色选择示例代码
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                ColorPickerDialog colorPickerDialog = new ColorPickerDialog.Builder()
+//                        .setContext(m_context)
+//                        .setColor(Color.RED)
+//                        .setTitle("画布颜色选择")
+//                        .setConfirmClickListener(new ColorPickerDialog.OnClickListener() {
+//                            @Override
+//                            public void onClick(String value) {
+//                                int color = Color.parseColor(value);
+//                            }
+//                        })
+//                        .create();
+//                colorPickerDialog.show();
+//            }
+//        });
     }
 
     public void addText(View view) {

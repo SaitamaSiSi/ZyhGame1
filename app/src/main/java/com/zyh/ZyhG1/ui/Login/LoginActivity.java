@@ -21,10 +21,6 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle state) {
         super.onCreate(state);
-
-        //Intent intent = new Intent(LoginActivity.this, CanvasActivity.class);
-        //startActivity(intent);
-
         setContentView(R.layout.login_activity);
         init();
     }

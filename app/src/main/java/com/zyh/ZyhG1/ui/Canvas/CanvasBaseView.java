@@ -28,7 +28,6 @@ import java.util.Objects;
 
 public class CanvasBaseView extends View {
     int defaultWidth = 160;
-    int defaultHeight = 160;
     private int defaultColor = Color.BLACK;
     private float canvasScale = 1;
     private float bordScale;
@@ -114,15 +113,14 @@ public class CanvasBaseView extends View {
         // 指定期望的 size
         //默认属性
         int width = resolveSize(defaultWidth, widthMeasureSpec);
-        int height = resolveSize(defaultHeight, heightMeasureSpec);
         // 设置大小
         //setMeasuredDimension(width, height);
-        bordScale = (float) width / defaultHeight;
+        bordScale = (float) width / defaultWidth;
         setMeasuredDimension(width, (int)(width / canvasScale));
     }
 
     public void Save() {
-        Bitmap bitmap = Bitmap.createBitmap(defaultWidth, (int) (defaultHeight / canvasScale), Bitmap.Config.RGB_565);
+        Bitmap bitmap = Bitmap.createBitmap(defaultWidth, (int) (defaultWidth / canvasScale), Bitmap.Config.RGB_565);
         Canvas canvas = new Canvas(bitmap);
         drawCanvas(canvas, true);
         NormalHelper.SaveBitmapWithCustomName(bitmap, getContext());

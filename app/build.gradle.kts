@@ -81,8 +81,6 @@ dependencies {
     /** exifinterface **/
     implementation("androidx.exifinterface:exifinterface:1.3.6")
 
-
-
     /** OkHttp **/
     // implementation("com.squareup.okhttp3:okhttp:4.12.0")
     /** json **/
@@ -96,4 +94,6 @@ dependencies {
     implementation("com.google.android.material:material:1.1.0")
     /** 开源项目CircleImageView,实现图片圆形化 **/
     implementation("de.hdodenhof:circleimageview:3.0.1")
+
+    implementation("com.github.skydoves:colorpickerview:2.3.0")
 }
