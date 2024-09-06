@@ -2,9 +2,10 @@ package com.zyh.ZyhG1.model;
 
 import android.graphics.Color;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class TextObject extends BaseObject {
+public class TextObject extends BaseObject implements Serializable {
     public enum HorizontalType {
         LEFT,
         CENTER,

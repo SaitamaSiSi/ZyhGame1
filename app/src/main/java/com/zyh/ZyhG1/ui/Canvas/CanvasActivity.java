@@ -71,17 +71,6 @@ public class CanvasActivity extends BaseActivity {
         InitViewPager();
     }
 
-    public List<BaseObject> cloneListWithSerialization(List<BaseObject> originalList) throws IOException, ClassNotFoundException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(originalList);
-
-        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bis);
-
-        return (List<BaseObject>) ois.readObject();
-    }
-
     protected void InitViewPager() {
         m_viewPager2 = findViewById(R.id.canvas_viewPager2);
         m_tabLayout = findViewById(R.id.canvas_tabLayout);

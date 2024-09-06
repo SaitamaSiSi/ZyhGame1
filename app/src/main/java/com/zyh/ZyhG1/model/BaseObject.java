@@ -1,6 +1,8 @@
 package com.zyh.ZyhG1.model;
 
-public class BaseObject {
+import java.io.Serializable;
+
+public class BaseObject implements Serializable {
     public String _uuid = "";
     public int _x = 10;
     public int _y = 10;

@@ -9,9 +9,16 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.widget.Toast;
 
+import com.zyh.ZyhG1.model.BaseObject;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class NormalHelper {
     public static String GetCurrentTime() {
@@ -48,5 +55,16 @@ public class NormalHelper {
         } catch (IOException e) {
             //e.printStackTrace();
         }
+    }
+
+    public static List<BaseObject> CloneListWithSerialization(List<BaseObject> originalList) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(originalList);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bis);
+
+        return (List<BaseObject>) ois.readObject();
     }
 }
