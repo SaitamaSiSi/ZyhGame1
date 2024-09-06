@@ -38,8 +38,13 @@ import com.zyh.ZyhG1.model.ImgObject;
 import com.zyh.ZyhG1.model.TextObject;
 import com.zyh.ZyhG1.ui.BaseActivity;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.List;
 import java.util.Objects;
 
 public class CanvasActivity extends BaseActivity {
@@ -64,6 +69,17 @@ public class CanvasActivity extends BaseActivity {
         m_view = findViewById(R.id.canvas_demo_view);
 
         InitViewPager();
+    }
+
+    public List<BaseObject> cloneListWithSerialization(List<BaseObject> originalList) throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(originalList);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bis);
+
+        return (List<BaseObject>) ois.readObject();
     }
 
     protected void InitViewPager() {
