@@ -140,7 +140,7 @@ public class CanvasBaseView extends View {
         invalidate(); // 刷新
     }
 
-    public void UpObj(String uuid) {
+    public void DownObj(String uuid) {
         boolean exchanged = false;
         BaseObject objToMove = null;
         for (BaseObject obj : objList) {
@@ -162,7 +162,7 @@ public class CanvasBaseView extends View {
         }
     }
 
-    public void DownObj(String uuid) {
+    public void UpObj(String uuid) {
         boolean exchanged = false;
         BaseObject objToMove = null;
         for (BaseObject obj : objList) {

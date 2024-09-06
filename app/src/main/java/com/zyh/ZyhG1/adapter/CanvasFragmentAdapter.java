@@ -7,6 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.zyh.ZyhG1.ui.Canvas.CanvasFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -51,11 +52,21 @@ public class CanvasFragmentAdapter extends FragmentStateAdapter {
         _fragments.put(uuid, fragment);
         mFragmentHashCodes.add(key);
     }
-    public void upFragment(String uuid) {
+    public void downFragment(String uuid) {
+        ArrayList<String> keys = new ArrayList<>(_tabTitles.keySet());
+        int index = keys.indexOf(uuid);
+        if (index >= 1 && index < mFragmentHashCodes.size()) {
+            Collections.swap(mFragmentHashCodes, index - 1, index);
+        }
         _tabTitles = swapPre(_tabTitles, uuid);
         _fragments = swapPre(_fragments, uuid);
     }
-    public void downFragment(String uuid) {
+    public void upFragment(String uuid) {
+        ArrayList<String> keys = new ArrayList<>(_tabTitles.keySet());
+        int index = keys.indexOf(uuid);
+        if (index >= 0 && index < mFragmentHashCodes.size() - 1) {
+            Collections.swap(mFragmentHashCodes, index, index + 1);
+        }
         _tabTitles = swapNext(_tabTitles, uuid);
         _fragments = swapNext(_fragments, uuid);
     }
@@ -109,7 +120,6 @@ public class CanvasFragmentAdapter extends FragmentStateAdapter {
 
         return ret;
     }
-
     public <K, V> LinkedHashMap<K, V> swapNext(LinkedHashMap<K, V> map, K sourceKey) {
         LinkedHashMap<K, V> ret = new LinkedHashMap<K, V>();
         // 找到目标key的位置
@@ -129,9 +139,9 @@ public class CanvasFragmentAdapter extends FragmentStateAdapter {
         // 重新赋值
         for (int i = 0; i < map.size(); i++) {
             if (i == index) {
-                ret.put(sourceKey, sourceValue);
-            } else if (i == index + 1) {
                 ret.put(nextKey, nextValue);
+            } else if (i == index + 1) {
+                ret.put(sourceKey, sourceValue);
             } else {
                 K iKey = keys.get(i);
                 V iValue = map.get(iKey);
